@@ -93,6 +93,19 @@ variable "max_node_count" {
   default     = 5
 }
 
+variable "on_demand_base_capacity" {
+  description = "Launch on demand instances and scale up using spot instances."
+  type        = number
+  default     = 3
+}
+
+variable "workers" {
+  description = "Define which workers in worker_groups_launch_template user need"
+  default = {
+    main = {}
+  }
+}
+
 variable "node_machine_type" {
   description = "The instance type to use for the cluster's worker nodes"
   type        = string
@@ -382,24 +395,6 @@ variable "enable_worker_groups_launch_template" {
   default     = false
 }
 
-variable "lt_desired_nodes_per_subnet" {
-  description = "The number of worker nodes in each Subnet (AZ) if using Launch Templates"
-  type        = number
-  default     = 1
-}
-
-variable "lt_min_nodes_per_subnet" {
-  description = "The minimum number of worker nodes in each Subnet (AZ) if using Launch Templates"
-  type        = number
-  default     = 1
-}
-
-variable "lt_max_nodes_per_subnet" {
-  description = "The maximum number of worker nodes in each Subnet (AZ) if using Launch Templates"
-  type        = number
-  default     = 2
-}
-
 variable "registry" {
   description = "Registry used to store images"
   type        = string
@@ -408,7 +403,7 @@ variable "registry" {
 
 variable "jx_git_operator_values" {
   description = "Extra values for jx-git-operator chart as a list of yaml formated strings"
-  type        = list(string)    
+  type        = list(string)
   default     = []
 }
 
